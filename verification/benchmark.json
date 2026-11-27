@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-27T05:00:16.984Z",
+  "environment": "Local Windows / Node v24.20.0",
+  "scope": "Production Next server; 3 synthetic projects, 96 snapshots each. No Railway or paid API calls. Not a Railway benchmark.",
+  "results": [
+    {
+      "concurrency": 1,
+      "requests": 30,
+      "errors": 0,
+      "statuses": {
+        "200": 30
+      },
+      "p50ms": 17.85,
+      "p95ms": 32.05,
+      "requestsPerSecond": 50.46
+    },
+    {
+      "concurrency": 8,
+      "requests": 80,
+      "errors": 0,
+      "statuses": {
+        "200": 80
+      },
+      "p50ms": 26.27,
+      "p95ms": 201.59,
+      "requestsPerSecond": 154.81
+    },
+    {
+      "concurrency": 32,
+      "requests": 160,
+      "errors": 0,
+      "statuses": {
+        "200": 160
+      },
+      "p50ms": 90.19,
+      "p95ms": 317.5,
+      "requestsPerSecond": 139.91
+    }
+  ],
+  "memory": {
+    "WorkingSet64": 273170432,
+    "PeakWorkingSet64": 281268224
+  }
+}

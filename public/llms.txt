@@ -1,0 +1,10 @@
+# Cost Observer
+
+Private Railway usage history, advisory project budgets and read-only cost inspection. Pre-release.
+
+- /openapi.json: REST interface contract
+- /capability-manifest.json: implemented capabilities and limitations
+- /api/health: liveness
+- /api/ready: readiness
+
+Requires the deployer's own Railway workspace/account token and hosting resources. No maintainer credentials or paid AI calls. No mutations to Railway. Costs are estimates, not invoice totals. Authentication is required for billing data.

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "alertsEnabled",
+    "forecastAlerts",
+    "anomalyMultiplier"
+  ],
+  "properties": {
+    "alertsEnabled": {
+      "type": "boolean"
+    },
+    "forecastAlerts": {
+      "type": "boolean"
+    },
+    "anomalyMultiplier": {
+      "type": "number",
+      "minimum": 1.5,
+      "maximum": 20
+    }
+  }
+}

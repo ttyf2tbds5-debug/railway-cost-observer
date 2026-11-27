@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+model Connection {
+  id String @id @default(cuid())
+  name String
+  workspaceId String @unique
+  token String
+  lastSync DateTime?
+  lastError String?
+  nextSyncAt DateTime @default(now())
+  failureCount Int @default(0)
+  createdAt DateTime @default(now())
+  projects Project[]
+}
+model Project {
+  id String @id
+  name String
+  connectionId String
+  connection Connection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  budget Float?
+  alertsEnabled Boolean @default(true)
+  forecastAlerts Boolean @default(true)
+  anomalyMultiplier Float @default(3)
+  snapshots Snapshot[]
+  alerts Alert[]
+}
+model Snapshot {
+  id String @id @default(cuid())
+  projectId String
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  periodStart DateTime
+  periodEnd DateTime
+  cost Float
+  forecast Float?
+  metrics String
+  @@index([projectId, createdAt])
+}
+model Alert {
+  id String @id @default(cuid())
+  projectId String
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  kind String
+  message String
+  dedupeKey String @unique
+  createdAt DateTime @default(now())
+  acknowledgedAt DateTime?
+  deliveredAt DateTime?
+  deliveryAttempts Int @default(0)
+  nextAttemptAt DateTime @default(now())
+  deliveries Delivery[]
+  @@index([nextAttemptAt, deliveredAt])
+}
+model Delivery {
+  id String @id @default(cuid())
+  alertId String
+  alert Alert @relation(fields: [alertId], references: [id], onDelete: Cascade)
+  channel String
+  attempts Int @default(0)
+  deliveredAt DateTime?
+  nextAttemptAt DateTime @default(now())
+  lastError String?
+  @@unique([alertId, channel])
+}
+model Audit {
+  id String @id @default(cuid())
+  action String
+  subject String
+  createdAt DateTime @default(now())
+}
+model Lease {
+  id String @id
+  expiresAt DateTime
+}
+model RateLimit {
+  id String @id
+  count Int
+  expiresAt DateTime
+}

@@ -1,0 +1,48 @@
+{
+  "name": "railway-cost-observer",
+  "version": "0.2.0-rc.1",
+  "status": "release-candidate",
+  "interfaces": {
+    "rest": "/openapi.json",
+    "mcp": {
+      "transport": "stdio",
+      "command": "npm run mcp",
+      "tools": [
+        "cost_observer_status",
+        "cost_observer_dashboard",
+        "cost_observer_audit"
+      ]
+    }
+  },
+  "capabilities": [
+    "railway-resource-cost-estimates",
+    "billing-period-linear-forecast",
+    "advisory-project-budgets",
+    "encrypted-workspace-tokens",
+    "csv-export",
+    "json-webhook",
+    "discord-webhook",
+    "smtp-email",
+    "telegram",
+    "per-channel-delivery-retries",
+    "configurable-notification-policies",
+    "service-resource-review-hints"
+  ],
+  "unsupported": [
+    "railway-mutations",
+    "invoice-reconciliation",
+    "multi-tenant-saas",
+    "horizontal-scaling"
+  ],
+  "authentication": [
+    "admin-session",
+    "admin-bearer",
+    "viewer-bearer"
+  ],
+  "costs": {
+    "developerHostedService": false,
+    "paidAIRequired": false,
+    "deployerPaysRailway": true
+  },
+  "telemetry": false
+}

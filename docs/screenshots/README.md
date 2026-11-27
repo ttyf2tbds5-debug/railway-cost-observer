@@ -1,0 +1,1 @@
+Actual local browser screenshots. Files ending in synthetic contain deliberately synthetic fixture data. Empty onboarding and mobile login are the genuine first-run state. No private billing data is pictured.
