@@ -1,14 +1,15 @@
-# Concrete publishing route
+# Publication status
 
-Proposed source repository name: railway-cost-observer (subject to availability). Working display name: Cost Observer — Railway Usage History & Budget Alerts. No affiliation with Railway is implied. CostGuard already has name conflicts; no legal trademark clearance is claimed for the working name.
+Published on 2026-11-27: https://railway.com/deploy/cost-observer
+Source: https://github.com/ttyf2tbds5-debug/railway-cost-observer
+Verified CI: https://github.com/ttyf2tbds5-debug/railway-cost-observer/actions/runs/45948392323
 
-1. Completed 2026-11-27: owner authorized public source publication following the MIT recommendation. LICENSE is MIT.
-2. Push this reviewed app directory only to a dedicated GitHub repository. Do not push the private portfolio folder, original prompt, .env, databases, credentials or TLS fixture keys.
-3. The public-only Verify release candidate workflow runs on a standard ubuntu-latest runner. It has read-only repository permissions, pinned official actions, a 20-minute timeout and no artifact/cache storage. Larger runners and private repository billing are excluded. Workflow source is prepared; it has not run yet. Billing source checked: https://docs.github.com/en/billing/concepts/product-billing/github-actions .
-4. Wait for the real Docker and browser result. Create a release only after failures are resolved.
-5. In Railway Workspace Settings → Templates → New Template, choose this GitHub source, one service and /data volume. Configure the required variables below. This composition does not require starting a billable service.
-6. Publish the template after quality review. Verify the actual public page, record its real URL and add the corresponding Deploy button. Do not invent template IDs.
+The owner authorized public source and MIT. The Marketplace listing is PUBLISHED and its public page was visually verified. Railway's separate isApproved/isVerified flags are false at publication; no Railway verification badge is claimed. The initial total project count and payout are zero. Publication does not guarantee deployments or earnings.
 
-Variables: DATABASE_URL=file:/data/cost-observer/data.db; APP_URL=the deployment HTTPS origin; independent random ADMIN_TOKEN and ENCRYPTION_KEY (32+ chars), optional VIEWER_TOKEN. Railway provides PORT. The image initializes /data/cost-observer as root, then runs migration/web/worker as node UID 1000. One replica only. Optional notification settings are documented separately.
+The template uses one Docker service, one persistent /data volume, port 3000 and an automatically referenced HTTPS origin. ADMIN_TOKEN, ENCRYPTION_KEY and VIEWER_TOKEN each use an independent secret(64) generator. Every template variable has a description. No owner credential is embedded. Healthcheck and replica configuration are in railway.toml.
 
-No owner's runtime, new subscription, domain, paid API or payment setting is needed for source publication. An actual Railway test still needs separate approval under the original zero-cost rule; do not turn a failed container check into a paid cloud deployment.
+Linux CI passed typecheck, lint, 52 unit/integration/MCP/network tests, 5 browser tests, production build, dependency audit and Docker build/startup/non-root/persistence checks. The restart smoke test rediscovering the mapped ephemeral port is included in the successful commit.
+
+No paid maintainer runtime, subscription, domain or external notification provider was started. A live Railway application deployment and real external notification delivery remain unverified. Keep one replica and back up the volume before upgrades. Estimates are not invoices; alerts never stop/delete/scale services.
+
+Kickback program reference: https://docs.railway.com/templates/kickbacks

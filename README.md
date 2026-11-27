@@ -1,6 +1,8 @@
 # Cost Observer — private Railway usage history and project budgets
 
-**Release candidate, MIT licensed. Linux container verification is pending. Not yet published to Railway.**
+**MIT licensed. Published on Railway Marketplace. Linux CI and Docker checks passed on 2026-11-27.**
+
+[Deploy Cost Observer on Railway](https://railway.com/deploy/cost-observer) · [Verified CI run](https://github.com/ttyf2tbds5-debug/railway-cost-observer/actions/runs/45948392323)
 
 Cost Observer (the CostGuard working project) helps small teams inspect Railway resource usage across workspaces, retain cost snapshots, set advisory project budgets, and read results through an authenticated REST API or a read-only MCP bridge. No central developer-operated server or paid AI API is required.
 
@@ -22,12 +24,12 @@ npm run dev
 ```
 Open http://localhost:3000 and sign in with ADMIN_TOKEN from your newly generated local .env. Then run `npm run worker` in a second terminal for polling. Add your own Railway account/workspace token and workspace UUID under Connections; click Sync usage. Project tokens and OAuth tokens are not supported by this adapter.
 
-For production-style local testing: `npm run build`, then `npm start` and a separate `npm run worker`. The Docker entrypoint runs both processes and migrates the database. Docker validation is still pending; do not treat the presence of a Dockerfile as evidence it was tested.
+For production-style local testing: `npm run build`, then `npm start` and a separate `npm run worker`. The Docker entrypoint runs both processes and migrates the database. Linux CI verified the Docker build, fresh-volume startup, non-root processes and persistence across restart.
 
 ## Deployment and costs
 One Railway service, one persistent /data volume, one replica. Set DATABASE_URL=file:/data/cost-observer/data.db, APP_URL to your HTTPS deployment origin and independent random ADMIN_TOKEN and ENCRYPTION_KEY (at least 32 characters each). VIEWER_TOKEN is optional. Never use the maintainer's secrets. The deployer pays their own Railway resources. No external AI API is used. Optional notification destinations are supplied by the deployer and may have their own costs.
 
-No Deploy button is included because no verified template URL exists yet. See docs/RAILWAY.md for the exact composition checklist.
+The [published Railway template](https://railway.com/deploy/cost-observer) configures the service, persistent volume, HTTPS origin and independent generated secrets. After deployment, copy the resolved ADMIN_TOKEN from your service's Variables tab to sign in. See docs/RAILWAY.md for setup. No maintainer-owned paid runtime was started; a live Railway deployment and real external notification delivery remain unverified.
 
 ## Limits and honest estimates
 Standard rates are sourced from Railway pricing and its official CLI on 2026-11-27. This is resource usage estimation, not invoice reconciliation: platform subscriptions, credits, discounts, taxes, build and other charges are excluded. Forecasting starts after the first 24 hours of a billing period and assumes constant usage. Alerting never caps or stops a Railway service. There are no Railway mutations.

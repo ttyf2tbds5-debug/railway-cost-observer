@@ -1,14 +1,11 @@
-# Concrete publishing route
+# Deploy Cost Observer on Railway
 
-Proposed source repository name: railway-cost-observer (subject to availability). Working display name: Cost Observer — Railway Usage History & Budget Alerts. No affiliation with Railway is implied. CostGuard already has name conflicts; no legal trademark clearance is claimed for the working name.
+Open https://railway.com/deploy/cost-observer and deploy in your own workspace. The deployer pays their own Railway resource usage.
 
-1. Owner approves public source and MIT, or chooses alternatives. The original brief explicitly requires this decision. Do not silently replace the current LICENSE.
-2. Push this reviewed app directory only to a dedicated GitHub repository. Do not push the private portfolio folder, original prompt, .env, databases, credentials or TLS fixture keys.
-3. The public-only Verify release candidate workflow runs on a standard ubuntu-latest runner. It has read-only repository permissions, pinned official actions, a 20-minute timeout and no artifact/cache storage. Larger runners and private repository billing are excluded. Workflow source is prepared; it has not run yet. Billing source checked: https://docs.github.com/en/billing/concepts/product-billing/github-actions .
-4. Wait for the real Docker and browser result. Create a release only after failures are resolved.
-5. In Railway Workspace Settings → Templates → New Template, choose this GitHub source, one service and /data volume. Configure the required variables below. This composition does not require starting a billable service.
-6. Publish the template after quality review. Verify the actual public page, record its real URL and add the corresponding Deploy button. Do not invent template IDs.
+The template includes one Docker service, a persistent /data volume, HTTP port 3000, DATABASE_URL=file:/data/cost-observer/data.db and APP_URL referencing the generated HTTPS domain. Independent admin, encryption and viewer secrets are generated for each deployment. Never paste the maintainer's credentials.
 
-Variables: DATABASE_URL=file:/data/cost-observer/data.db; APP_URL=the deployment HTTPS origin; independent random ADMIN_TOKEN and ENCRYPTION_KEY (32+ chars), optional VIEWER_TOKEN. Railway provides PORT. The image initializes /data/cost-observer as root, then runs migration/web/worker as node UID 1000. One replica only. Optional notification settings are documented separately.
+Once the deployment is ready, open its public domain. Copy the resolved ADMIN_TOKEN from the service Variables tab to sign in. In Connections add your own Railway account/workspace token and workspace UUID, then Sync usage. Project and OAuth tokens are unsupported. Configure project budgets and optional notification providers as described in NOTIFICATIONS.md.
 
-No owner's runtime, new subscription, domain, paid API or payment setting is needed for source publication. An actual Railway test still needs separate approval under the original zero-cost rule; do not turn a failed container check into a paid cloud deployment.
+Keep one replica. The container initializes volume ownership then runs migration, web and worker as node UID 1000. Readiness is /api/ready. Changing ENCRYPTION_KEY without migrating encrypted credentials makes saved connections unreadable. Back up the volume before upgrades. If adding a custom domain, update APP_URL to exactly match its HTTPS origin.
+
+Linux container checks passed in public CI. The maintainer has not run a paid Railway demo or verified live external notification delivery. See PUBLISHING.md and RELEASE_GATES.md.

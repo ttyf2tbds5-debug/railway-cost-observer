@@ -1,6 +1,6 @@
 # Cost Observer release candidate — publication checks
 
-This candidate implements the first product's core monitoring workflow. It is not yet marketplace-published. Do not mark an unrun deployment check successful.
+This candidate implements the first product's core monitoring workflow. Published on 2026-11-27: https://railway.com/deploy/cost-observer . Do not mark an unrun deployment check successful.
 
 ## Completed implementation
 - Multi-workspace Railway resource estimates, per-project history and CSV export.
@@ -15,10 +15,10 @@ This candidate implements the first product's core monitoring workflow. It is no
 ## Verified here
 52 unit/integration/MCP/network tests and 5 real Chrome browser tests pass. Typecheck, lint and production build pass. Dependency audit reports zero known vulnerabilities. Notification TLS is tested against a local trusted certificate with controlled DNS/socket routing; SMTP and Telegram adapters are mocked, not sent to a real recipient. Exact Railway queries/parser were verified with existing CLI authentication, not by copying credentials into the application.
 
-## Remaining publication gates
+## Publication checks
 1. Completed: the owner authorized publication after the public GitHub + MIT recommendation on 2026-11-27. The active LICENSE is MIT.
-2. Run the included GitHub verification job in an approved public repository (standard ubuntu-latest runner only). It performs the Linux Docker build, fresh volume startup, non-root process checks and persistence across restart. No local Docker/WSL runtime is installed. The workflow refuses private repositories and uses neither artifact/cache uploads nor paid/larger runners.
-3. Review the actual CI result before creating a stable release or publishing the Marketplace listing. Fix any Linux-only failure; do not claim it passed because a script exists.
+2. Passed: public GitHub CI at https://github.com/ttyf2tbds5-debug/railway-cost-observer/actions/runs/45948392323 . Linux Docker build, fresh volume startup, UID 1000 processes and persistence across restart all passed. The workflow uses a standard ubuntu-latest runner, refuses private repositories and uses neither artifact/cache uploads nor paid/larger runners.
+3. Completed: the actual successful CI result was reviewed before Marketplace publication. The public listing, source link, description, deployment button and /data volume preview were verified.
 4. Before any real Railway deployment, apply the owner's separate zero-additional-cost approval gate. A template can be composed without starting a runtime; no paid demo service is required.
 
 ## Intentional scope and disclosure
