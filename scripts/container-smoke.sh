@@ -19,10 +19,13 @@ docker run -d --name "$name" --publish 127.0.0.1::3000 --mount "type=volume,sour
 port="$(docker port "$name" 3000/tcp | head -n 1 | sed 's/.*://')"
 wait_ready() {
   for _ in $(seq 1 60); do
+    # Docker may allocate a different ephemeral host port on container restart.
+    port="$(docker port "$name" 3000/tcp | head -n 1 | sed 's/.*://')"
     if curl -fsS "http://127.0.0.1:$port/api/ready" >/dev/null; then return; fi
     sleep 1
   done
   docker logs "$name"
+  docker inspect --format '{{json .State}} {{json .NetworkSettings.Ports}}' "$name"
   return 1
 }
 wait_ready
